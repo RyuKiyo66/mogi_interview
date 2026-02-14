@@ -8,8 +8,8 @@ const _geistMono = Geist_Mono({ subsets: ['latin'] })
 const _notoSansJp = Noto_Sans_JP({ subsets: ['latin'], variable: '--font-noto-sans-jp' })
 
 export const metadata: Metadata = {
-  title: '長崎県茂木取材記録',
-  description: '長崎県茂木の魅力的なコンテンツを取材・記録するアプリケーション',
+  title: '長崎県茂木町の魅力の記録',
+  description: '長崎県茂木町の魅力的なコンテンツを取材・記録するアプリケーション',
   generator: 'v0.app',
 }
 

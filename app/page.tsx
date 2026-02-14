@@ -95,7 +95,7 @@ export default function Page() {
           <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 sm:gap-4">
             <div className="flex-1">
               <h1 className="text-2xl sm:text-3xl font-bold text-white drop-shadow-md line-clamp-1">
-                長崎県茂木取材記録
+                長崎県茂木町の魅力の記録
               </h1>
               <p className="text-xs sm:text-sm text-white/90 mt-0.5 sm:mt-1 drop-shadow line-clamp-1">
                 地元の魅力的なコンテンツを取材・記録
@@ -107,7 +107,11 @@ export default function Page() {
               )}
               <Button
                 onClick={() => setView(view === 'list' ? 'form' : 'list')}
-                className="whitespace-nowrap bg-white/20 hover:bg-white/30 text-white font-semibold px-3 sm:px-5 py-2 text-sm sm:text-base border border-white/40 backdrop-blur-sm flex-1 sm:flex-none"
+                className={`whitespace-nowrap font-semibold px-3 sm:px-5 py-2 text-sm sm:text-base flex-1 sm:flex-none transition-all ${
+                  view === 'list'
+                    ? 'bg-gradient-to-r from-blue-700 to-blue-900 hover:from-blue-800 hover:to-blue-950 text-white shadow-lg'
+                    : 'bg-white/20 hover:bg-white/30 text-white border border-white/40 backdrop-blur-sm'
+                }`}
               >
                 {view === 'list' ? '新規作成' : '一覧に戻る'}
               </Button>
