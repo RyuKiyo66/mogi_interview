@@ -26,7 +26,10 @@ export async function GET(request: NextRequest) {
       const lowerKeyword = keyword.toLowerCase()
       const { data, error } = await query
 
-      if (error) throw error
+      if (error) {
+        console.error('[v0] Supabase query error:', error)
+        throw error
+      }
 
       // Client-side filtering for Japanese text search
       const filtered = data.filter((interview: Interview) =>
@@ -35,18 +38,24 @@ export async function GET(request: NextRequest) {
         interview.summary?.toLowerCase().includes(lowerKeyword)
       )
 
+      console.log('[v0] Filtered interviews by keyword:', filtered.length)
       return NextResponse.json(filtered)
     }
 
     const { data, error } = await query
 
-    if (error) throw error
+    if (error) {
+      console.error('[v0] Supabase query error:', error)
+      throw error
+    }
 
+    console.log('[v0] Fetched interviews:', data.length)
     return NextResponse.json(data)
   } catch (error) {
-    console.error('Error fetching interviews:', error)
+    console.error('[v0] Error fetching interviews:', error)
+    const errorMessage = error instanceof Error ? error.message : 'Failed to fetch interviews'
     return NextResponse.json(
-      { error: 'Failed to fetch interviews' },
+      { error: errorMessage },
       { status: 500 }
     )
   }
@@ -85,13 +94,18 @@ export async function POST(request: NextRequest) {
       ])
       .select()
 
-    if (error) throw error
+    if (error) {
+      console.error('[v0] Supabase insert error:', error)
+      throw error
+    }
 
+    console.log('[v0] Interview created:', data[0])
     return NextResponse.json(data[0], { status: 201 })
   } catch (error) {
-    console.error('Error creating interview:', error)
+    console.error('[v0] Error creating interview:', error)
+    const errorMessage = error instanceof Error ? error.message : 'Failed to create interview'
     return NextResponse.json(
-      { error: 'Failed to create interview' },
+      { error: errorMessage },
       { status: 500 }
     )
   }

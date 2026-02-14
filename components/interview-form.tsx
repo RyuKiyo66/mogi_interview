@@ -58,12 +58,16 @@ export function InterviewForm({ onSuccess, onCancel }: InterviewFormProps) {
         }),
       })
 
+      console.log('[v0] Interview POST response status:', response.status)
+
       if (!response.ok) {
         const errorData = await response.json()
+        console.log('[v0] Interview POST error:', errorData)
         throw new Error(errorData.error || 'Failed to create interview')
       }
 
       const newInterview = await response.json()
+      console.log('[v0] Interview created successfully:', newInterview)
       setFormData({
         interviewee_name: '',
         interview_date: new Date().toISOString().split('T')[0],

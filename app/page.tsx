@@ -28,8 +28,11 @@ export default function Page() {
       if (keyword) {
         url.searchParams.set('keyword', keyword)
       }
+      console.log('[v0] Fetching interviews from:', url.toString())
       const response = await fetch(url.toString())
+      console.log('[v0] Fetch response status:', response.status)
       const data = await response.json()
+      console.log('[v0] Fetch response data:', data)
       
       if (!response.ok) {
         setError(data.error || 'Failed to fetch interviews')
@@ -39,7 +42,7 @@ export default function Page() {
       
       setInterviews(data)
     } catch (err) {
-      console.error('Error fetching interviews:', err)
+      console.error('[v0] Error fetching interviews:', err)
       setError('Error connecting to database')
       setInterviews([])
     } finally {
