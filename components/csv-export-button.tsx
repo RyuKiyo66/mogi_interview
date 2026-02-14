@@ -50,9 +50,10 @@ export function CSVExportButton({
     <Button
       onClick={handleExport}
       disabled={disabled || isExporting || interviews.length === 0}
-      className="whitespace-nowrap px-6 py-3 bg-gradient-to-r from-green-400 via-emerald-500 to-green-600 hover:from-green-500 hover:via-emerald-600 hover:to-green-700 text-white shadow-lg hover:shadow-2xl font-bold text-base transition-all transform hover:scale-105 active:scale-95 border-2 border-green-300"
+      className="whitespace-nowrap px-3 sm:px-6 py-2 sm:py-3 bg-gradient-to-r from-green-400 via-emerald-500 to-green-600 hover:from-green-500 hover:via-emerald-600 hover:to-green-700 text-white shadow-lg hover:shadow-2xl font-bold text-xs sm:text-base transition-all transform hover:scale-105 active:scale-95 border-2 border-green-300"
     >
-      {isExporting ? '📊 エクスポート中...' : '📥 CSV ダウンロード'}
+      <span className="hidden sm:inline">{isExporting ? '📊 エクスポート中...' : '📥 CSV ダウンロード'}</span>
+      <span className="sm:hidden">{isExporting ? 'エクスポート中...' : 'CSV'}</span>
     </Button>
   )
 }

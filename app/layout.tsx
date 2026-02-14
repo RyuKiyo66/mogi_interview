@@ -1,4 +1,4 @@
-import type { Metadata } from 'next'
+import type { Metadata, Viewport } from 'next'
 import { Geist, Geist_Mono, Noto_Sans_JP } from 'next/font/google'
 
 import './globals.css'
@@ -11,6 +11,14 @@ export const metadata: Metadata = {
   title: '長崎県茂木取材記録',
   description: '長崎県茂木の魅力的なコンテンツを取材・記録するアプリケーション',
   generator: 'v0.app',
+}
+
+export const viewport: Viewport = {
+  width: 'device-width',
+  initialScale: 1,
+  maximumScale: 1,
+  userScalable: false,
+  themeColor: '#0ea5e9',
 }
 
 export default function RootLayout({

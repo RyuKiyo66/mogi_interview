@@ -82,21 +82,21 @@ export function InterviewForm({ onSuccess, onCancel }: InterviewFormProps) {
   }
 
   return (
-    <form onSubmit={handleSubmit} className="w-full max-w-2xl mx-auto p-6">
-      <h2 className="text-2xl font-bold mb-6 text-foreground">
+    <form onSubmit={handleSubmit} className="w-full max-w-2xl mx-auto p-4 sm:p-6">
+      <h2 className="text-xl sm:text-2xl font-bold mb-4 sm:mb-6 text-foreground">
         新しい取材を記録
       </h2>
 
       {error && (
-        <div className="mb-4 p-4 bg-red-50 border border-red-200 rounded-lg text-red-700">
+        <div className="mb-4 p-3 sm:p-4 bg-red-50 border border-red-200 rounded-lg text-red-700 text-sm">
           {error}
         </div>
       )}
 
-      <div className="space-y-5">
+      <div className="space-y-4 sm:space-y-5">
         {/* Interviewee Name */}
         <div>
-          <label htmlFor="interviewee_name" className="block text-sm font-medium text-foreground mb-2">
+          <label htmlFor="interviewee_name" className="block text-xs sm:text-sm font-medium text-foreground mb-2">
             取材相手の名前 *
           </label>
           <input
@@ -106,14 +106,14 @@ export function InterviewForm({ onSuccess, onCancel }: InterviewFormProps) {
             value={formData.interviewee_name}
             onChange={handleInputChange}
             placeholder="例：田中花子"
-            className="w-full px-4 py-2 border border-input rounded-lg focus:outline-none focus:ring-2 focus:ring-primary bg-background"
+            className="w-full px-3 sm:px-4 py-2 border border-input rounded-lg focus:outline-none focus:ring-2 focus:ring-primary bg-background text-sm"
             required
           />
         </div>
 
         {/* Interview Date */}
         <div>
-          <label htmlFor="interview_date" className="block text-sm font-medium text-foreground mb-2">
+          <label htmlFor="interview_date" className="block text-xs sm:text-sm font-medium text-foreground mb-2">
             取材日 *
           </label>
           <input
@@ -122,14 +122,14 @@ export function InterviewForm({ onSuccess, onCancel }: InterviewFormProps) {
             name="interview_date"
             value={formData.interview_date}
             onChange={handleInputChange}
-            className="w-full px-4 py-2 border border-input rounded-lg focus:outline-none focus:ring-2 focus:ring-primary bg-background"
+            className="w-full px-3 sm:px-4 py-2 border border-input rounded-lg focus:outline-none focus:ring-2 focus:ring-primary bg-background text-sm"
             required
           />
         </div>
 
         {/* Interview Content */}
         <div>
-          <label htmlFor="content" className="block text-sm font-medium text-foreground mb-2">
+          <label htmlFor="content" className="block text-xs sm:text-sm font-medium text-foreground mb-2">
             取材内容 *
           </label>
           <textarea
@@ -138,8 +138,8 @@ export function InterviewForm({ onSuccess, onCancel }: InterviewFormProps) {
             value={formData.content}
             onChange={handleInputChange}
             placeholder="取材内容を詳しく入力してください..."
-            rows={8}
-            className="w-full px-4 py-2 border border-input rounded-lg focus:outline-none focus:ring-2 focus:ring-primary bg-background resize-none"
+            rows={6}
+            className="w-full px-3 sm:px-4 py-2 border border-input rounded-lg focus:outline-none focus:ring-2 focus:ring-primary bg-background resize-none text-sm"
             required
           />
           <p className="text-xs text-muted-foreground mt-1">
@@ -148,7 +148,7 @@ export function InterviewForm({ onSuccess, onCancel }: InterviewFormProps) {
         </div>
 
         {/* Buttons */}
-        <div className="flex gap-3 pt-4">
+        <div className="flex flex-col sm:flex-row gap-3 pt-4">
           <Button
             type="submit"
             disabled={isLoading}

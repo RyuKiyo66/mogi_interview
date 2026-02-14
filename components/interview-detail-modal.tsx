@@ -71,28 +71,28 @@ export function InterviewDetailModal({
       />
 
       {/* Modal */}
-      <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
+      <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4">
         <div
           className="bg-background border border-border rounded-lg shadow-lg max-w-2xl w-full max-h-[90vh] overflow-y-auto"
           onClick={(e) => e.stopPropagation()}
         >
           {/* Header */}
-          <div className="sticky top-0 bg-background border-b border-border p-6 flex justify-between items-start">
-            <div>
-              <p className="text-sm text-muted-foreground mb-2">
+          <div className="sticky top-0 bg-background border-b border-border p-4 sm:p-6 flex justify-between items-start gap-4">
+            <div className="min-w-0 flex-1">
+              <p className="text-xs sm:text-sm text-muted-foreground mb-2">
                 {formatDate(interview.interview_date)}
               </p>
-              <h2 className="text-2xl font-bold text-foreground">
+              <h2 className="text-lg sm:text-2xl font-bold text-foreground line-clamp-2">
                 {interview.interviewee_name}
               </h2>
             </div>
             <button
               onClick={handleClose}
-              className="text-muted-foreground hover:text-foreground transition-colors"
+              className="text-muted-foreground hover:text-foreground transition-colors flex-shrink-0"
               aria-label="Close modal"
             >
               <svg
-                className="w-6 h-6"
+                className="w-5 h-5 sm:w-6 sm:h-6"
                 fill="none"
                 stroke="currentColor"
                 viewBox="0 0 24 24"
@@ -108,22 +108,22 @@ export function InterviewDetailModal({
           </div>
 
           {/* Content */}
-          <div className="p-6">
-            <div className="prose prose-sm max-w-none text-foreground">
+          <div className="p-4 sm:p-6">
+            <div className="prose prose-sm max-w-none text-foreground text-sm">
               <p className="whitespace-pre-wrap leading-relaxed">
                 {interview.content}
               </p>
             </div>
 
             {/* Metadata */}
-            <div className="mt-6 pt-6 border-t border-border text-xs text-muted-foreground space-y-1">
+            <div className="mt-4 sm:mt-6 pt-4 sm:pt-6 border-t border-border text-xs text-muted-foreground space-y-1">
               <p>作成日: {formatDate(interview.created_at)}</p>
               <p>更新日: {formatDate(interview.updated_at)}</p>
             </div>
           </div>
 
           {/* Footer */}
-          <div className="sticky bottom-0 bg-background border-t border-border p-6 flex gap-3">
+          <div className="sticky bottom-0 bg-background border-t border-border p-4 sm:p-6 flex flex-col sm:flex-row gap-3">
             <Button
               onClick={handleClose}
               variant="outline"
