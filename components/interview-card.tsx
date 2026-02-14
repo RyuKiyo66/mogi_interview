@@ -20,7 +20,7 @@ export function InterviewCard({ interview, onClick }: InterviewCardProps) {
   return (
     <div
       onClick={() => onClick(interview)}
-      className="p-4 border border-border rounded-lg bg-card hover:shadow-md hover:border-primary transition-all cursor-pointer"
+      className="p-6 border border-white/40 rounded-2xl bg-white/60 backdrop-blur-sm hover:bg-white/80 hover:shadow-xl hover:border-primary transition-all cursor-pointer group"
     >
       <div className="space-y-2">
         {/* Date */}
@@ -40,8 +40,8 @@ export function InterviewCard({ interview, onClick }: InterviewCardProps) {
       </div>
 
       {/* Click to read more indicator */}
-      <div className="mt-3 pt-3 border-t border-border">
-        <p className="text-xs text-primary font-medium">クリックして詳細を表示</p>
+      <div className="mt-4 pt-4 border-t border-white/20">
+        <p className="text-xs text-primary font-semibold group-hover:translate-x-1 transition-transform">→ クリックして詳細を表示</p>
       </div>
     </div>
   )

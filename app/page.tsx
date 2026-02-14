@@ -88,9 +88,9 @@ export default function Page() {
   }
 
   return (
-    <main className="min-h-screen bg-background">
+    <main className="min-h-screen bg-transparent">
       {/* Header */}
-      <header className="border-b border-border sticky top-0 bg-background z-40">
+      <header className="border-b border-border sticky top-0 bg-white/80 backdrop-blur-md z-40 shadow-lg">
         <div className="max-w-7xl mx-auto px-4 py-4">
           <div className="flex items-center justify-between gap-4">
             <div>
@@ -146,7 +146,7 @@ export default function Page() {
               placeholder="キーワードで検索（取材相手名、内容など）..."
               value={searchKeyword}
               onChange={(e) => handleSearch(e.target.value)}
-              className="w-full px-4 py-2 border border-input rounded-lg focus:outline-none focus:ring-2 focus:ring-primary bg-background text-foreground placeholder-muted-foreground"
+              className="w-full px-6 py-3 border border-white/40 rounded-full focus:outline-none focus:ring-2 focus:ring-primary bg-white/70 backdrop-blur-sm text-foreground placeholder-gray-500 shadow-md hover:bg-white/80 transition-all"
             />
           </div>
 
