@@ -10,9 +10,6 @@ CREATE TABLE IF NOT EXISTS public.interviews (
 );
 
 -- Create index for faster searches
-CREATE INDEX IF NOT EXISTS idx_interviews_content ON public.interviews USING GIN (
-  to_tsvector('japanese', content)
-);
 CREATE INDEX IF NOT EXISTS idx_interviews_name ON public.interviews (interviewee_name);
 CREATE INDEX IF NOT EXISTS idx_interviews_date ON public.interviews (interview_date DESC);
 
