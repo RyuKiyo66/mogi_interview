@@ -17,21 +17,31 @@ export default function Page() {
   const [view, setView] = useState<View>('list')
   const [isLoading, setIsLoading] = useState(true)
   const [searchKeyword, setSearchKeyword] = useState('')
+  const [error, setError] = useState<string | null>(null)
 
   // Fetch interviews
   const fetchInterviews = async (keyword?: string) => {
     try {
+      setError(null)
       setIsLoading(true)
       const url = new URL('/api/interviews', window.location.origin)
       if (keyword) {
         url.searchParams.set('keyword', keyword)
       }
       const response = await fetch(url.toString())
-      if (!response.ok) throw new Error('Failed to fetch interviews')
       const data = await response.json()
+      
+      if (!response.ok) {
+        setError(data.error || 'Failed to fetch interviews')
+        setInterviews([])
+        return
+      }
+      
       setInterviews(data)
-    } catch (error) {
-      console.error('Error fetching interviews:', error)
+    } catch (err) {
+      console.error('Error fetching interviews:', err)
+      setError('Error connecting to database')
+      setInterviews([])
     } finally {
       setIsLoading(false)
     }
@@ -107,6 +117,19 @@ export default function Page() {
         </div>
       ) : (
         <div className="max-w-7xl mx-auto px-4 py-8">
+          {/* Error Message */}
+          {error && (
+            <div className="mb-6 p-4 bg-red-50 border border-red-200 rounded-lg text-red-800">
+              <p className="font-medium">エラーが発生しました</p>
+              <p className="text-sm mt-1">{error}</p>
+              {error.includes('Database not configured') && (
+                <p className="text-sm mt-2 text-red-600">
+                  Supabase環境変数が設定されていません。プロジェクト設定で設定してください。
+                </p>
+              )}
+            </div>
+          )}
+
           {/* Search Bar */}
           <div className="mb-8">
             <input

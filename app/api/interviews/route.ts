@@ -4,6 +4,14 @@ import type { Interview } from '@/lib/types'
 
 export async function GET(request: NextRequest) {
   try {
+    // Check for required environment variables
+    if (!process.env.NEXT_PUBLIC_SUPABASE_URL || !process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY) {
+      return NextResponse.json(
+        { error: 'Database not configured. Please set Supabase environment variables.' },
+        { status: 503 }
+      )
+    }
+
     const supabase = getSupabaseClient()
     const searchParams = request.nextUrl.searchParams
     const keyword = searchParams.get('keyword')
@@ -46,6 +54,14 @@ export async function GET(request: NextRequest) {
 
 export async function POST(request: NextRequest) {
   try {
+    // Check for required environment variables
+    if (!process.env.NEXT_PUBLIC_SUPABASE_URL || !process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY) {
+      return NextResponse.json(
+        { error: 'Database not configured. Please set Supabase environment variables.' },
+        { status: 503 }
+      )
+    }
+
     const supabase = getSupabaseClient()
     const body = await request.json()
     const { interviewee_name, interview_date, content, summary } = body

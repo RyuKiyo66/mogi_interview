@@ -6,6 +6,13 @@ export async function GET(
   { params }: { params: { id: string } }
 ) {
   try {
+    if (!process.env.NEXT_PUBLIC_SUPABASE_URL || !process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY) {
+      return NextResponse.json(
+        { error: 'Database not configured' },
+        { status: 503 }
+      )
+    }
+
     const supabase = getSupabaseClient()
     const { data, error } = await supabase
       .from('interviews')
@@ -37,6 +44,13 @@ export async function PUT(
   { params }: { params: { id: string } }
 ) {
   try {
+    if (!process.env.NEXT_PUBLIC_SUPABASE_URL || !process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY) {
+      return NextResponse.json(
+        { error: 'Database not configured' },
+        { status: 503 }
+      )
+    }
+
     const supabase = getSupabaseClient()
     const body = await request.json()
     const { interviewee_name, interview_date, content, summary } = body
@@ -77,6 +91,14 @@ export async function DELETE(
   { params }: { params: { id: string } }
 ) {
   try {
+    if (!process.env.NEXT_PUBLIC_SUPABASE_URL || !process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY) {
+      return NextResponse.json(
+        { error: 'Database not configured' },
+        { status: 503 }
+      )
+    }
+
+    const supabase = getSupabaseClient()
     const { error } = await supabase
       .from('interviews')
       .delete()
