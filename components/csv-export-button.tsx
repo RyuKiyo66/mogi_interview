@@ -50,10 +50,9 @@ export function CSVExportButton({
     <Button
       onClick={handleExport}
       disabled={disabled || isExporting || interviews.length === 0}
-      variant="outline"
-      className="whitespace-nowrap"
+      className="whitespace-nowrap bg-gradient-to-r from-green-500 to-emerald-500 hover:from-green-600 hover:to-emerald-600 text-white shadow-md font-semibold transition-all"
     >
-      {isExporting ? 'エクスポート中...' : 'CSV ダウンロード'}
+      {isExporting ? 'エクスポート中...' : '📥 CSV ダウンロード'}
     </Button>
   )
 }

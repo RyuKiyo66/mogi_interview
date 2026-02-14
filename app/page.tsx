@@ -90,14 +90,14 @@ export default function Page() {
   return (
     <main className="min-h-screen bg-transparent">
       {/* Header */}
-      <header className="border-b border-border sticky top-0 bg-white/80 backdrop-blur-md z-40 shadow-lg">
+      <header className="sticky top-0 bg-gradient-to-r from-blue-500 via-blue-400 to-cyan-400 z-40 shadow-lg border-b border-blue-300">
         <div className="max-w-7xl mx-auto px-4 py-4">
           <div className="flex items-center justify-between gap-4">
             <div>
-              <h1 className="text-3xl font-bold text-foreground">
+              <h1 className="text-3xl font-bold text-white drop-shadow-md">
                 長崎県茂木取材記録
               </h1>
-              <p className="text-sm text-muted-foreground mt-1">
+              <p className="text-sm text-white/90 mt-1 drop-shadow">
                 地元の魅力的なコンテンツを取材・記録
               </p>
             </div>
