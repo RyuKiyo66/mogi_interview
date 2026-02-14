@@ -5,6 +5,7 @@ import { Button } from '@/components/ui/button'
 import { InterviewForm } from '@/components/interview-form'
 import { InterviewCard } from '@/components/interview-card'
 import { InterviewDetailModal } from '@/components/interview-detail-modal'
+import { CSVExportButton } from '@/components/csv-export-button'
 import type { Interview } from '@/lib/types'
 
 type View = 'list' | 'form'
@@ -100,12 +101,17 @@ export default function Page() {
                 地元の魅力的なコンテンツを取材・記録
               </p>
             </div>
-            <Button
-              onClick={() => setView(view === 'list' ? 'form' : 'list')}
-              className="whitespace-nowrap"
-            >
-              {view === 'list' ? '新規作成' : '一覧に戻る'}
-            </Button>
+            <div className="flex items-center gap-2">
+              {view === 'list' && (
+                <CSVExportButton interviews={interviews} disabled={isLoading} />
+              )}
+              <Button
+                onClick={() => setView(view === 'list' ? 'form' : 'list')}
+                className="whitespace-nowrap"
+              >
+                {view === 'list' ? '新規作成' : '一覧に戻る'}
+              </Button>
+            </div>
           </div>
         </div>
       </header>
