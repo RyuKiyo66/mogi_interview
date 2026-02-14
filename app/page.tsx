@@ -101,13 +101,13 @@ export default function Page() {
                 地元の魅力的なコンテンツを取材・記録
               </p>
             </div>
-            <div className="flex items-center gap-2">
+            <div className="flex items-center gap-4">
               {view === 'list' && (
                 <CSVExportButton interviews={interviews} disabled={isLoading} />
               )}
               <Button
                 onClick={() => setView(view === 'list' ? 'form' : 'list')}
-                className="whitespace-nowrap"
+                className="whitespace-nowrap bg-white/20 hover:bg-white/30 text-white font-semibold px-5 py-2 border border-white/40 backdrop-blur-sm"
               >
                 {view === 'list' ? '新規作成' : '一覧に戻る'}
               </Button>
