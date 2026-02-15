@@ -1,6 +1,5 @@
 'use client'
 
-import { useState } from 'react'
 import type { Interview } from '@/lib/types'
 
 interface InterviewCardProps {
@@ -8,6 +7,16 @@ interface InterviewCardProps {
   onClick: (interview: Interview) => void
   onDelete?: (id: string) => Promise<void>
 }
+
+export function InterviewCard({ interview, onClick }: InterviewCardProps) {
+  const formatDate = (dateString: string) => {
+    const date = new Date(dateString)
+    return date.toLocaleDateString('ja-JP', {
+      year: 'numeric',
+      month: '2-digit',
+      day: '2-digit',
+    })
+  }
 
 export function InterviewCard({ interview, onClick, onDelete }: InterviewCardProps) {
   const [isDeleting, setIsDeleting] = useState(false)
@@ -77,21 +86,6 @@ export function InterviewCard({ interview, onClick, onDelete }: InterviewCardPro
           {interview.summary}
         </p>
       </div>
-
-      {/* Delete button */}
-      {onDelete && (
-        <div className="mt-3 flex gap-2" onClick={(e) => { e.stopPropagation(); e.preventDefault() }}>
-          <button
-            onClick={handleDeleteClick}
-            onMouseDown={(e) => { e.preventDefault(); e.stopPropagation() }}
-            disabled={isDeleting}
-            type="button"
-            className="flex-1 px-3 py-2 text-xs sm:text-sm bg-red-500 hover:bg-red-600 active:bg-red-700 disabled:bg-red-300 disabled:cursor-not-allowed text-white rounded font-semibold transition-colors cursor-pointer"
-          >
-            {isDeleting ? '削除中...' : '削除'}
-          </button>
-        </div>
-      )}
 
       {/* Click to read more indicator */}
       <div className="mt-3 sm:mt-4 pt-3 sm:pt-4 border-t border-white/20">
