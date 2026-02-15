@@ -23,6 +23,7 @@ export function InterviewCard({ interview, onClick, onDelete }: InterviewCardPro
   const handleDeleteClick = async (e: React.MouseEvent) => {
     e.stopPropagation()
     console.log('[v0] Delete button clicked for interview:', interview.id)
+    alert(`削除ボタンが押されました。ID: ${interview.id}`)
     if (!onDelete) {
       console.log('[v0] onDelete callback not provided')
       return
@@ -72,7 +73,7 @@ export function InterviewCard({ interview, onClick, onDelete }: InterviewCardPro
         <button
           onClick={handleDeleteClick}
           disabled={isDeleting}
-          className="absolute top-2 right-2 sm:top-4 sm:right-4 p-2 rounded-lg bg-red-500 hover:bg-red-600 text-white opacity-0 group-hover:opacity-100 transition-opacity disabled:opacity-50"
+          className="absolute top-2 right-2 sm:top-4 sm:right-4 p-2 rounded-lg bg-red-500 hover:bg-red-600 text-white shadow-lg z-10 transition-all active:scale-95"
           aria-label="Delete interview"
           title="削除"
         >
