@@ -130,14 +130,14 @@ export default function Page() {
 
       {/* Main Content */}
       {view === 'form' ? (
-        <div className="max-w-7xl mx-auto px-4 py-8">
+        <div className="max-w-7xl mx-auto px-4 py-8 bg-white/10 backdrop-blur-md rounded-2xl my-4 sm:my-8 mx-4 sm:mx-auto">
           <InterviewForm
             onSuccess={handleInterviewCreated}
             onCancel={() => setView('list')}
           />
         </div>
       ) : (
-        <div className="max-w-7xl mx-auto px-4 py-4 sm:py-8">
+        <div className="max-w-7xl mx-auto px-4 py-4 sm:py-8 bg-white/10 backdrop-blur-md rounded-2xl my-4 sm:my-8 mx-4 sm:mx-auto">
           {/* Error Message */}
           {error && (
             <div className="mb-4 sm:mb-6 p-3 sm:p-4 bg-red-50 border border-red-200 rounded-lg text-red-800 text-sm sm:text-base">
