@@ -18,53 +18,6 @@ export function InterviewCard({ interview, onClick }: InterviewCardProps) {
     })
   }
 
-export function InterviewCard({ interview, onClick, onDelete }: InterviewCardProps) {
-  const [isDeleting, setIsDeleting] = useState(false)
-  const formatDate = (dateString: string) => {
-    const date = new Date(dateString)
-    return date.toLocaleDateString('ja-JP', {
-      year: 'numeric',
-      month: '2-digit',
-      day: '2-digit',
-    })
-  }
-
-  const handleDeleteClick = (e: React.MouseEvent<HTMLButtonElement>) => {
-    console.log('[v0] Delete button clicked, preventing default and stopping propagation')
-    e.preventDefault()
-    e.stopPropagation()
-    
-    console.log('[v0] Delete button clicked for interview:', interview.id)
-    
-    if (!onDelete) {
-      console.log('[v0] onDelete callback not provided')
-      alert('削除機能が利用できません')
-      return
-    }
-    
-    const confirmed = window.confirm('この取材記録を削除してもよろしいですか？')
-    console.log('[v0] Delete confirmation result:', confirmed)
-    
-    if (!confirmed) {
-      console.log('[v0] Delete cancelled by user')
-      return
-    }
-    
-    setIsDeleting(true)
-    console.log('[v0] Delete confirmed, calling onDelete callback')
-    
-    // Call the parent's delete handler which already has API logic
-    onDelete(interview.id)
-      .then(() => {
-        console.log('[v0] Delete completed successfully')
-      })
-      .catch((error) => {
-        console.error('[v0] Error deleting interview:', error)
-        alert('削除に失敗しました: ' + (error instanceof Error ? error.message : String(error)))
-        setIsDeleting(false)
-      })
-  }
-
   return (
     <div
       onClick={() => onClick(interview)}
