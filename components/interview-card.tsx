@@ -20,43 +20,40 @@ export function InterviewCard({ interview, onClick, onDelete }: InterviewCardPro
     })
   }
 
-  const handleDeleteClick = async (e: React.MouseEvent<HTMLButtonElement>) => {
+  const handleDeleteClick = (e: React.MouseEvent<HTMLButtonElement>) => {
+    console.log('[v0] Delete button clicked, preventing default and stopping propagation')
     e.preventDefault()
     e.stopPropagation()
+    
     console.log('[v0] Delete button clicked for interview:', interview.id)
     
     if (!onDelete) {
       console.log('[v0] onDelete callback not provided')
+      alert('削除機能が利用できません')
       return
     }
     
     const confirmed = window.confirm('この取材記録を削除してもよろしいですか？')
+    console.log('[v0] Delete confirmation result:', confirmed)
+    
     if (!confirmed) {
       console.log('[v0] Delete cancelled by user')
       return
     }
     
     setIsDeleting(true)
-    console.log('[v0] Delete confirmed, calling onDelete with ID:', interview.id)
-    try {
-      const response = await fetch(`/api/interviews/${interview.id}`, {
-        method: 'DELETE',
+    console.log('[v0] Delete confirmed, calling onDelete callback')
+    
+    // Call the parent's delete handler which already has API logic
+    onDelete(interview.id)
+      .then(() => {
+        console.log('[v0] Delete completed successfully')
       })
-      console.log('[v0] Delete API response status:', response.status)
-      const data = await response.json()
-      console.log('[v0] Delete API response data:', data)
-      
-      if (!response.ok) {
-        throw new Error(data.error || 'Failed to delete')
-      }
-      
-      console.log('[v0] Delete completed successfully')
-      await onDelete(interview.id)
-    } catch (error) {
-      console.error('[v0] Error deleting interview:', error)
-      alert('削除に失敗しました: ' + (error instanceof Error ? error.message : String(error)))
-      setIsDeleting(false)
-    }
+      .catch((error) => {
+        console.error('[v0] Error deleting interview:', error)
+        alert('削除に失敗しました: ' + (error instanceof Error ? error.message : String(error)))
+        setIsDeleting(false)
+      })
   }
 
   return (
@@ -83,12 +80,13 @@ export function InterviewCard({ interview, onClick, onDelete }: InterviewCardPro
 
       {/* Delete button */}
       {onDelete && (
-        <div className="mt-3 flex gap-2">
+        <div className="mt-3 flex gap-2" onClick={(e) => { e.stopPropagation(); e.preventDefault() }}>
           <button
             onClick={handleDeleteClick}
+            onMouseDown={(e) => { e.preventDefault(); e.stopPropagation() }}
             disabled={isDeleting}
             type="button"
-            className="flex-1 px-3 py-2 text-xs sm:text-sm bg-red-500 hover:bg-red-600 disabled:bg-red-300 text-white rounded font-semibold transition-colors cursor-pointer"
+            className="flex-1 px-3 py-2 text-xs sm:text-sm bg-red-500 hover:bg-red-600 active:bg-red-700 disabled:bg-red-300 disabled:cursor-not-allowed text-white rounded font-semibold transition-colors cursor-pointer"
           >
             {isDeleting ? '削除中...' : '削除'}
           </button>
