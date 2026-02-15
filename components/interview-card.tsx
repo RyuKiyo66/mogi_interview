@@ -39,8 +39,19 @@ export function InterviewCard({ interview, onClick, onDelete }: InterviewCardPro
     setIsDeleting(true)
     console.log('[v0] Delete confirmed, calling onDelete with ID:', interview.id)
     try {
-      await onDelete(interview.id)
+      const response = await fetch(`/api/interviews/${interview.id}`, {
+        method: 'DELETE',
+      })
+      console.log('[v0] Delete API response status:', response.status)
+      const data = await response.json()
+      console.log('[v0] Delete API response data:', data)
+      
+      if (!response.ok) {
+        throw new Error(data.error || 'Failed to delete')
+      }
+      
       console.log('[v0] Delete completed successfully')
+      await onDelete(interview.id)
     } catch (error) {
       console.error('[v0] Error deleting interview:', error)
       alert('削除に失敗しました: ' + (error instanceof Error ? error.message : String(error)))
