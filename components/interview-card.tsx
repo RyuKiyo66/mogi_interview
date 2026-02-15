@@ -22,18 +22,26 @@ export function InterviewCard({ interview, onClick, onDelete }: InterviewCardPro
 
   const handleDeleteClick = async (e: React.MouseEvent) => {
     e.stopPropagation()
-    if (!onDelete) return
+    console.log('[v0] Delete button clicked for interview:', interview.id)
+    if (!onDelete) {
+      console.log('[v0] onDelete callback not provided')
+      return
+    }
     
     if (confirm('この取材記録を削除してもよろしいですか？')) {
       setIsDeleting(true)
+      console.log('[v0] Delete confirmed, calling onDelete')
       try {
         await onDelete(interview.id)
+        console.log('[v0] Delete completed successfully')
       } catch (error) {
-        console.error('Error deleting interview:', error)
+        console.error('[v0] Error deleting interview:', error)
         alert('削除に失敗しました')
       } finally {
         setIsDeleting(false)
       }
+    } else {
+      console.log('[v0] Delete cancelled by user')
     }
   }
 

@@ -76,14 +76,19 @@ export default function Page() {
   // Handle delete
   const handleDelete = async (id: string) => {
     try {
+      console.log('[v0] Starting delete for interview ID:', id)
       const response = await fetch(`/api/interviews/${id}`, {
         method: 'DELETE',
       })
-      if (!response.ok) throw new Error('Failed to delete')
+      console.log('[v0] Delete response status:', response.status)
+      const responseData = await response.json()
+      console.log('[v0] Delete response data:', responseData)
+      if (!response.ok) throw new Error(responseData.error || 'Failed to delete')
       setInterviews((prev) => prev.filter((i) => i.id !== id))
       setSelectedInterview(null)
+      console.log('[v0] Interview deleted successfully from UI')
     } catch (error) {
-      console.error('Error deleting interview:', error)
+      console.error('[v0] Error deleting interview:', error)
       throw error
     }
   }

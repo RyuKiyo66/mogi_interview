@@ -99,16 +99,21 @@ export async function DELETE(
     }
 
     const supabase = getSupabaseClient()
+    console.log('[v0] Deleting interview with ID:', params.id)
     const { error } = await supabase
       .from('interviews')
       .delete()
       .eq('id', params.id)
 
-    if (error) throw error
+    if (error) {
+      console.log('[v0] Supabase delete error:', error)
+      throw error
+    }
 
+    console.log('[v0] Interview deleted successfully:', params.id)
     return NextResponse.json({ success: true })
   } catch (error) {
-    console.error('Error deleting interview:', error)
+    console.error('[v0] Error deleting interview:', error)
     return NextResponse.json(
       { error: 'Failed to delete interview' },
       { status: 500 }
