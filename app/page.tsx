@@ -90,8 +90,16 @@ export default function Page() {
   return (
     <main className="min-h-screen bg-transparent">
       {/* Header */}
-      <header className="sticky top-0 bg-gradient-to-r from-blue-500 via-blue-400 to-cyan-400 z-40 shadow-lg border-b border-blue-300">
-        <div className="max-w-7xl mx-auto px-4 py-3 md:py-4">
+      <header 
+        className="sticky top-0 z-40 shadow-lg border-b border-blue-300 bg-cover bg-center bg-no-repeat"
+        style={{
+          backgroundImage: 'url(/header-mogi.jpg)',
+          backgroundAttachment: 'scroll'
+        }}
+      >
+        {/* Dark overlay for text readability */}
+        <div className="absolute inset-0 bg-black/40"></div>
+        <div className="relative max-w-7xl mx-auto px-4 py-3 md:py-4">
           <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 sm:gap-4">
             <div className="flex-1">
               <h1 className="text-2xl sm:text-3xl font-bold text-white drop-shadow-md line-clamp-1">
@@ -117,6 +125,7 @@ export default function Page() {
               </Button>
             </div>
           </div>
+        </div>
         </div>
       </header>
 
