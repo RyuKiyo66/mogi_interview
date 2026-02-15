@@ -206,6 +206,7 @@ export default function Page() {
                   key={interview.id}
                   interview={interview}
                   onClick={setSelectedInterview}
+                  onDelete={handleDelete}
                 />
               ))}
             </div>
