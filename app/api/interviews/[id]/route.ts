@@ -91,7 +91,10 @@ export async function DELETE(
   { params }: { params: { id: string } }
 ) {
   try {
+    console.log('[v0] DELETE request received for ID:', params.id)
+    
     if (!process.env.NEXT_PUBLIC_SUPABASE_URL || !process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY) {
+      console.log('[v0] Database not configured')
       return NextResponse.json(
         { error: 'Database not configured' },
         { status: 503 }
@@ -100,22 +103,28 @@ export async function DELETE(
 
     const supabase = getSupabaseClient()
     console.log('[v0] Deleting interview with ID:', params.id)
-    const { error } = await supabase
+    
+    // Execute SQL delete query directly
+    const { data, error } = await supabase
       .from('interviews')
       .delete()
       .eq('id', params.id)
+      .select()
+
+    console.log('[v0] Delete response - data:', data, 'error:', error)
 
     if (error) {
       console.log('[v0] Supabase delete error:', error)
-      throw error
+      throw new Error(String(error))
     }
 
     console.log('[v0] Interview deleted successfully:', params.id)
-    return NextResponse.json({ success: true })
+    return NextResponse.json({ success: true, deletedId: params.id })
   } catch (error) {
     console.error('[v0] Error deleting interview:', error)
+    const errorMessage = error instanceof Error ? error.message : 'Failed to delete interview'
     return NextResponse.json(
-      { error: 'Failed to delete interview' },
+      { error: errorMessage },
       { status: 500 }
     )
   }

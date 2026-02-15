@@ -20,29 +20,31 @@ export function InterviewCard({ interview, onClick, onDelete }: InterviewCardPro
     })
   }
 
-  const handleDeleteClick = async (e: React.MouseEvent) => {
+  const handleDeleteClick = async (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault()
     e.stopPropagation()
     console.log('[v0] Delete button clicked for interview:', interview.id)
-    alert(`削除ボタンが押されました。ID: ${interview.id}`)
+    
     if (!onDelete) {
       console.log('[v0] onDelete callback not provided')
       return
     }
     
-    if (confirm('この取材記録を削除してもよろしいですか？')) {
-      setIsDeleting(true)
-      console.log('[v0] Delete confirmed, calling onDelete')
-      try {
-        await onDelete(interview.id)
-        console.log('[v0] Delete completed successfully')
-      } catch (error) {
-        console.error('[v0] Error deleting interview:', error)
-        alert('削除に失敗しました')
-      } finally {
-        setIsDeleting(false)
-      }
-    } else {
+    const confirmed = window.confirm('この取材記録を削除してもよろしいですか？')
+    if (!confirmed) {
       console.log('[v0] Delete cancelled by user')
+      return
+    }
+    
+    setIsDeleting(true)
+    console.log('[v0] Delete confirmed, calling onDelete with ID:', interview.id)
+    try {
+      await onDelete(interview.id)
+      console.log('[v0] Delete completed successfully')
+    } catch (error) {
+      console.error('[v0] Error deleting interview:', error)
+      alert('削除に失敗しました: ' + (error instanceof Error ? error.message : String(error)))
+      setIsDeleting(false)
     }
   }
 
@@ -70,14 +72,16 @@ export function InterviewCard({ interview, onClick, onDelete }: InterviewCardPro
 
       {/* Delete button */}
       {onDelete && (
-        <button
-          onClick={handleDeleteClick}
-          disabled={isDeleting}
-          type="button"
-          className="mt-3 px-3 py-1 text-xs sm:text-sm bg-red-500 hover:bg-red-600 text-white rounded font-semibold transition-colors"
-        >
-          削除
-        </button>
+        <div className="mt-3 flex gap-2">
+          <button
+            onClick={handleDeleteClick}
+            disabled={isDeleting}
+            type="button"
+            className="flex-1 px-3 py-2 text-xs sm:text-sm bg-red-500 hover:bg-red-600 disabled:bg-red-300 text-white rounded font-semibold transition-colors cursor-pointer"
+          >
+            {isDeleting ? '削除中...' : '削除'}
+          </button>
+        </div>
       )}
 
       {/* Click to read more indicator */}
