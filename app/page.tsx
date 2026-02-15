@@ -1,6 +1,7 @@
 'use client'
 
 import { useEffect, useState } from 'react'
+import Link from 'next/link'
 import { Button } from '@/components/ui/button'
 import { InterviewForm } from '@/components/interview-form'
 import { InterviewCard } from '@/components/interview-card'
@@ -111,7 +112,15 @@ export default function Page() {
             </div>
             <div className="flex items-center gap-2 sm:gap-4 w-full sm:w-auto">
               {view === 'list' && (
-                <CSVExportButton interviews={interviews} disabled={isLoading} />
+                <>
+                  <Link href="/how-to">
+                    <Button className="whitespace-nowrap px-3 sm:px-5 py-2 text-xs sm:text-base bg-white/20 hover:bg-white/30 text-white font-semibold border border-white/40 backdrop-blur-sm flex-1 sm:flex-none">
+                      <span className="hidden sm:inline">❓ 使い方</span>
+                      <span className="sm:hidden">使い方</span>
+                    </Button>
+                  </Link>
+                  <CSVExportButton interviews={interviews} disabled={isLoading} />
+                </>
               )}
               <Button
                 onClick={() => setView(view === 'list' ? 'form' : 'list')}
